@@ -67,7 +67,22 @@ UPDATE PARTEI p
    SET VORGÄNGER = (SELECT ID from PARTEI n WHERE n.NAME LIKE '%' || p.NAME || '%' AND p.ID != n.ID AND p.VON != n.VON FETCH FIRST 1 ROWS ONLY)
    WHERE VORGÄNGER is null AND VON != to_date('2002-11-24', 'yyyy-mm-dd');
 
-SELECT * FROM wahlkreise;
+INSERT INTO WAHL_BERECHTIGTE (WAHLKREIS, BERECHTIGTE, ABGEGEBEN, WAHLBETEILIGUNG, WAHL)
+SELECT (SELECT id FROM wahlkreise k WHERE k.NR = to_char(s."Nr. ") AND VON = to_date("erste Eingabe Datum", 'dd.mm.yy')), "Wahlbe rechtigte", "abgegeb. Stimmen", "Wahlbet. in %", w.ID FROM STAGEING_STAT_DOWNLOAD_NR02_NEW s JOIN WAHL w ON WAHL_DATUM = to_date("erste Eingabe Datum", 'dd.mm.yy');
 
 INSERT INTO WAHL_BERECHTIGTE (WAHLKREIS, BERECHTIGTE, ABGEGEBEN, WAHLBETEILIGUNG, WAHL)
-SELECT (SELECT id FROM wahlkreise k WHERE k.NR = s."Nr. " ), "Wahlbe rechtigte", "abgegeb. Stimmen", "Wahlbet. in %", w.ID FROM STAGEING_STAT_DOWNLOAD_NR02_NEW s JOIN WAHL w ON WAHL_DATUM = to_date("erste Eingabe Datum", 'dd.mm.yy');
+SELECT (SELECT id FROM wahlkreise k WHERE k.NR = to_char(s."Nr. ") AND VON = to_date("erste Eingabe Datum")), "Wahlbe rechtigte", "abgegeb. Stimmen", "Wahlbet. in %", w.ID FROM STAGEING_STAT_DOWNLOAD_NR06_NEW s JOIN WAHL w ON WAHL_DATUM = to_date("erste Eingabe Datum");
+
+INSERT INTO WAHL_BERECHTIGTE (WAHLKREIS, BERECHTIGTE, ABGEGEBEN, WAHLBETEILIGUNG, WAHL)
+SELECT (SELECT id FROM wahlkreise k WHERE k.NR = to_char(s."Nr. ") AND VON = to_date("erste Eingabe Datum", 'mm-dd-yy')), "Wahlbe rechtigte", "abgegeb. Stimmen", "Wahlbet. in %", w.ID FROM STAGEING_STAT_DOWNLOAD_NR08_NEW s JOIN WAHL w ON WAHL_DATUM = to_date("erste Eingabe Datum", 'mm-dd-yy');
+
+INSERT INTO WAHL_BERECHTIGTE (WAHLKREIS, BERECHTIGTE, ABGEGEBEN, WAHLBETEILIGUNG, WAHL)
+SELECT (SELECT id FROM wahlkreise k WHERE k.NR = to_char(s."Nr. ") AND VON = to_date("erste Eingabe Datum", 'mm-dd-yy')), "Wahlbe rechtigte", "abgegeb. Stimmen", "Wahlbet. in %", w.ID FROM STAGEING_STAT_DOWNLOAD_NR13_NEW s JOIN WAHL w ON WAHL_DATUM = to_date("erste Eingabe Datum", 'mm-dd-yy');
+
+INSERT INTO WAHL_BERECHTIGTE (WAHLKREIS, BERECHTIGTE, ABGEGEBEN, WAHLBETEILIGUNG, WAHL)
+SELECT (SELECT id FROM wahlkreise k WHERE k.NR = to_char(s."Nr. ") AND VON = to_date("erste Eingabe Datum")), "Wahlbe rechtigte", "abgegeb. ", "Wahlbet. in %", w.ID FROM STAGEING_STAT_DOWNLOAD_NR17_NEW s JOIN WAHL w ON WAHL_DATUM = to_date("erste Eingabe Datum");
+
+INSERT INTO WAHL_BERECHTIGTE (WAHLKREIS, BERECHTIGTE, ABGEGEBEN, WAHLBETEILIGUNG, WAHL)
+SELECT (SELECT id FROM wahlkreise k WHERE k.NR = to_char(s."Nr. ") AND VON = to_date("erste Eingabe Datum")), "Wahlbe rechtigte", "abgegeb. ", "Wahlbet. in %", w.ID FROM STAGEING_STAT_DOWNLOAD_NR19_NEW s JOIN WAHL w ON WAHL_DATUM = to_date("erste Eingabe Datum");
+
+
